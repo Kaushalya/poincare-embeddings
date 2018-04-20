@@ -22,6 +22,7 @@ for synset in wn.all_synsets(pos='n'):
             for h in hyper.closure(lambda s: s.hypernyms()):
                 edges.add((instance.name(), h.name()))
 
-with open(f'noun_closure.tsv', 'w') as fout:
+with open('noun_closure.tsv', 'w') as fout:
     for i, j in edges:
-        fout.write(f'{i}\t{j}\n')
+        fout.write('{}\t{}\n'.format(i, j))
+

@@ -42,7 +42,7 @@ def train(model, data, optimizer, opt, log, rank=1, queue=None):
             data.burnin = True
             lr = opt.lr * _lr_multiplier
             if rank == 1:
-                log.info(f'Burnin: lr={lr}')
+                log.info('Burnin: lr={}'.format(lr))
         for inputs, targets in loader:
             elapsed = timeit.default_timer() - t_start
             optimizer.zero_grad()
@@ -62,8 +62,8 @@ def train(model, data, optimizer, opt, log, rank=1, queue=None):
             else:
                 log.info(
                     'info: {'
-                    f'"elapsed": {elapsed}, '
-                    f'"loss": {np.mean(epoch_loss)}, '
+                    '"elapsed": {}, '.format(elapsed) +
+                    '"loss": {np.mean()}, '.format(epoch_loss) +
                     '}'
                 )
         gc.collect()

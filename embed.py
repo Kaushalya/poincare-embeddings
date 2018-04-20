@@ -82,7 +82,7 @@ def control(queue, log, types, data, fout, distfn, nepochs, processes):
                      epoch, elapsed, loss, mrank, mAP, min_rank[0], max_map[0])
             )
         else:
-            log.info(f'json_log: {{"epoch": {epoch}, "loss": {loss}, "elapsed": {elapsed}}}')
+            log.info('json_log: {{"epoch": {}, "loss": {}, "elapsed": {}}}'.format(epoch, loss, elapsed))
         if epoch >= nepochs - 1:
             log.info(
                 ('results: {'
@@ -141,7 +141,7 @@ if __name__ == '__main__':
         distfn = model.TranseDistance
         opt.rgrad = rsgd.euclidean_grad
     else:
-        raise ValueError(f'Unknown distance function {opt.distfn}')
+        raise ValueError('Unknown distance function {}'.format(opt.distfn))
 
     # initialize model and data
     model, data, model_name, conf = model.SNGraphDataset.initialize(distfn, opt, idx, objects)
@@ -155,7 +155,7 @@ if __name__ == '__main__':
         ('negs', '{:d}'),
     ] + conf
     conf = ', '.join(['"{}": {}'.format(k, f).format(getattr(opt, k)) for k, f in conf])
-    log.info(f'json_conf: {{{conf}}}')
+    log.info('json_conf: {{{}}}'.format(conf))
 
     # initialize optimizer
     optimizer = RiemannianSGD(
